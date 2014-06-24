@@ -13,8 +13,12 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="0.2.0" date="2014-06-24" min="2.4">
+			- Added editor trigger
+			- Fixed naming
+		</release>
 		<release version="0.1.0" date="2014-06-11" min="2.4">
-			- Initial release.
+			- Initial release
 		</release>
 	</releases>
 </extension>

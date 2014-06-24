@@ -8,7 +8,7 @@ Class extension_association_ui_editor extends Extension
     {
         self::$provides = array(
             'association-editor' => array(
-                'editor' => 'Editor'
+                'aui-editor' => 'Editor'
             )
         );
 
@@ -30,4 +30,30 @@ Class extension_association_ui_editor extends Extension
         return self::$provides[$type];
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getSubscribedDelegates()
+    {
+        return array(
+            array(
+                'page' => '/backend/',
+                'delegate' => 'InitaliseAdminPageHead',
+                'callback' => 'appendAssets'
+            )
+        );
+    }
+
+    /**
+     * Append assets
+     */
+    public function appendAssets()
+    {
+        $callback = Symphony::Engine()->getPageCallback();
+
+        if ($callback['driver'] == 'publish' && $callback['context']['page'] !== 'index') {
+            Administration::instance()->Page->addScriptToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.js');
+            Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.css');
+        }
+    }
 }
