@@ -5,7 +5,7 @@
 		var fields, trigger;
 
 		var init = function() {
-			console.log('editor');
+			// console.log('editor');
 			trigger = createTrigger();
 			fields = Symphony.Elements.contents.find('.field[data-editor^="aui-editor"]');
 			setTimeout(function() {
