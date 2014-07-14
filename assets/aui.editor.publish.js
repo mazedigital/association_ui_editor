@@ -41,7 +41,7 @@
 			var page = templatePage.clone();
 
 			// Adjust nested section
-			page.find('iframe').attr('src', window.location).on('load.aui-editor', function() {
+			page.find('iframe').attr('src', Symphony.Context.get('root') + '/symphony/').on('load.aui-editor', function() {
 				var iframe = $(this),
 					contents = iframe.contents();
 
