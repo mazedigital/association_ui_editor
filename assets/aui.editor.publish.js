@@ -38,17 +38,19 @@
 		};
 
 		var loadPage = function() {
-			var page = templatePage.clone(),
-				iframe = page.find('iframe').attr('src', window.location).on('load.aui-editor', function() {
-					var iframe = $(this),
-						contents = iframe.contents();
+			var page = templatePage.clone();
 
-					contents.find('body').addClass('aui-editor-section');
-					contents.find('#header').remove();
-					contents.find('#context .actions').remove();
+			// Adjust nested section
+			page.find('iframe').attr('src', window.location).on('load.aui-editor', function() {
+				var iframe = $(this),
+					contents = iframe.contents();
 
-					iframe.removeClass('hidden');
-				});
+				contents.find('body').addClass('aui-editor-section');
+				contents.find('#header').remove();
+				contents.find('#context .actions').remove();
+
+				iframe.removeClass('hidden');
+			});
 
 			Symphony.Elements.contents.append(page);
 		};
@@ -61,6 +63,6 @@
 
 	$(window).on('load.aui-editor', function() {
 		Symphony.Extensions.AssociationUIEditor.init();
-	})
+	});
 
 })(window.jQuery, window.Symphony);
