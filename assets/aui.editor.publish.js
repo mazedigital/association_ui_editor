@@ -2,7 +2,8 @@
 	'use strict';
 
 	Symphony.Language.add({
-		'Edit': false
+		'Edit': false,
+		'Associated {$section-name}': false
 	});
 
 	Symphony.Extensions.AssociationUIEditor = function() {
@@ -18,6 +19,7 @@
 		};
 
 		var createTriggerTemplate = function() {
+			console.log('createTriggerTemplate');
 			return $('<a class="aui-editor-trigger">' + Symphony.Language.get('Edit') + '</a>');
 		};
 
@@ -38,18 +40,45 @@
 		};
 
 		var loadPage = function() {
-			var page = templatePage.clone();
+			var trigger = $(this),
+				page = templatePage.clone(),
+				link = trigger.parents('.item').data('link');
 
 			// Adjust nested section
-			page.find('iframe').attr('src', Symphony.Context.get('root') + '/symphony/').on('load.aui-editor', function() {
+			page.find('iframe').attr('src', link).on('load.aui-editor', function() {
 				var iframe = $(this),
 					contents = iframe.contents();
 
+				// Remove elements
 				contents.find('body').addClass('aui-editor-section');
 				contents.find('#header').remove();
 				contents.find('#context .actions').remove();
+				contents.find('#content .actions .delete').remove();
+
+				// Modify content
+				contents.find('#breadcrumbs a').each(function(index) {
+					var link = $(this),
+						sectionName;
+
+					link.removeAttr('href');
+
+					if(index === 0) {
+						name = link.text();
+						link.text(Symphony.Language.get('Associated {$section-name}', {
+							'section-name': name
+						}));
+					}
+				});
 
 				iframe.removeClass('hidden');
+			});
+
+			// Cancel page
+			page.on('click.aui-editor', function() {
+				page.addClass('cancel');
+				setTimeout(function() {
+					page.remove();
+				}, 500);
 			});
 
 			Symphony.Elements.contents.append(page);

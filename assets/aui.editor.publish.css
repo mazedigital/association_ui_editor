@@ -3,7 +3,7 @@
  */
 
 .field[data-editor='aui-editor'] .item {
-	padding-left: 1.6rem;
+	padding-left: 0.6rem;
 }
 
 .field[data-editor='aui-editor'] .item::before {
@@ -79,6 +79,11 @@
 	box-shadow: 0 -0.2rem 0.3rem rgba(0, 0, 0, 0.05);
 	-webkit-animation: introduce 0.25s forwards;
 	animation: introduce 0.25s forwards;
+	animation-direction: alternate;
+}
+
+.aui-editor-page.cancel {
+	animation: introduce 0.25s forwards;
 }
 
 .aui-editor-page iframe {
@@ -98,9 +103,15 @@
 
 .aui-editor-section #context {
 	min-height: 2.7rem;
-	padding: 1rem 1.8rem 0;
+	padding: 1.2rem 1.8rem 0;
+	background: #fff;
+}
+
+.aui-editor-section #breadcrumbs a {
+	border: none;
 }
 
 .aui-editor-section #contents {
 	box-shadow: none;
+	border: none;
 }
