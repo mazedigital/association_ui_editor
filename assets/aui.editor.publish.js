@@ -44,13 +44,18 @@
 
 		var attachCreateButton = function() {
 			var field = $(this),
-				button;
+				button, handle, link;
 
 			if(field.is('[data-editor="aui-editor-new"]')) {
 				button = templateCreate.clone();
+				handle = getSectionHandle(field.data('parent-section-id'));
+				link = Symphony.Context.get('symphony') + '/publish/' + handle + '/new/';
+
 				button.on('click.aui-editor', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
+	
+					loadEditor(link);
 				}).appendTo(field);
 			}
 		};
@@ -270,6 +275,22 @@
 
 		var resetScrollHeight = function() {
 			Symphony.Elements.contents.removeAttr('style');
+		};
+
+		var getSectionHandle = function(id) {
+			var associations = Symphony.Context.get('env').associations.parent,
+				handle = '';
+
+			console.log(id)
+
+			$.each(associations, function(index, association) {
+				console.log(association);
+				if(association.id == id) {
+					handle = association.handle
+				}
+			});
+
+			return handle;
 		};
 
 		// API
