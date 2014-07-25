@@ -37,6 +37,25 @@
 	margin-right: 0;
 }
 
+.aui-editor-progress {
+	height: 0.3rem;
+	background: #5c83ba;
+	width: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: width 4s ease-in;
+	z-index: 5000;
+	opacity: 1;
+}
+
+.aui-editor-progress.changes-fast {
+	transition: width 0.5s ease-in, opacity 0.25s ease-in 0.75s;
+}
+
+.aui-editor-progress.is-hidden {
+	opacity: 0;
+}
 
 /* Page */
 
@@ -116,6 +135,7 @@
 	box-shadow: 0 -0.2rem 0.3rem rgba(0, 0, 0, 0.05);
 	-webkit-animation: introduce 0.25s forwards;
 	animation: introduce 0.25s forwards;
+	position: relative;
 }
 
 .is-canceled .aui-editor-page {

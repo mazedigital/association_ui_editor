@@ -14,7 +14,8 @@
 	Symphony.Extensions.AssociationUIEditor = function() {
 		var fields,
 			templateTrigger, templateEditor, templateCreate,
-			editors = {};
+			editors = {},
+			progress, progressFrame;
 
 		var init = function() {
 			fields = Symphony.Elements.contents.find('.field[data-editor^="aui-editor"]');
@@ -31,7 +32,7 @@
 		};
 
 		var createEditorTemplate = function() {
-			return $('<div class="aui-editor"><div class="aui-editor-page"><iframe class="is-hidden" width="100%" height="100%" frameborder="0" /></div></div>');
+			return $('<div class="aui-editor"><div class="aui-editor-page"><div class="aui-editor-progress"></div><iframe class="is-hidden" width="100%" height="100%" frameborder="0" /></div></div>');
 		};
 
 		var createNewTemplate = function() {
@@ -87,18 +88,45 @@
 		};
 
 		var loadEditor = function(link) {
-			var editor = templateEditor.clone();
+			var editor = templateEditor.clone(),
+				iframe = editor.find('iframe');
 
-			// Prepare page
-			editor.find('iframe').attr('src', link).on('load.aui-editor', loadPage);
+			// Setup progress bar
+			progress = editor.find('.aui-editor-progress');
+			progressFrame = iframe[0];
+			window.requestAnimationFrame(indicateState);
 
-			// Prepare editor closing
+			// Load content
+			iframe.on('load.aui-editor', loadPage);
+			iframe.attr('src', link);
+
+			// Prepare closing
 			editor.on('click.aui-editor', closeEditor);
 
 			// Attach editor
 			editor.data('link', link);
 			editors[link] = editor;
 			showEditor(link);
+		};
+
+		var indicateState = function() {
+			var	state = progressFrame.contentDocument.readyState;
+
+			if(state == 'complete' || state == 'interactive') {
+				if(state == 'complete') {
+					progress.addClass('changes-fast');
+					progress.css('width', '100%');
+					progress.addClass('is-hidden');
+				}
+				else {
+					progress.addClass('changes-fast');
+					window.requestAnimationFrame(indicateState);
+				}
+			}
+			else {
+				progress.css('width', '50%');
+				window.requestAnimationFrame(indicateState);	
+			}
 		};
 
 		var closeEditor = function() {
@@ -276,10 +304,7 @@
 			var associations = Symphony.Context.get('env').associations.parent,
 				handle = '';
 
-			console.log(id)
-
 			$.each(associations, function(index, association) {
-				console.log(association);
 				if(association.id == id) {
 					handle = association.handle
 				}
