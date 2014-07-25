@@ -55,7 +55,7 @@
 				button.on('click.aui-editor', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
-	
+
 					loadEditor(link);
 				}).appendTo(field);
 			}
@@ -70,7 +70,7 @@
 				trigger = templateTrigger.clone();
 
 			trigger.on('mousedown.aui-editor', triggerPage);
-			item.not('.aui-editor-trigger').prepend(trigger);				
+			item.not('.aui-editor-trigger').prepend(trigger);
 		};
 
 		var triggerPage = function(event) {
@@ -125,7 +125,7 @@
 			}
 			else {
 				progress.css('width', '50%');
-				window.requestAnimationFrame(indicateState);	
+				window.requestAnimationFrame(indicateState);
 			}
 		};
 
@@ -249,7 +249,7 @@
 
 			// Set close action
 			Symphony.Elements.context.one('click.aui-editor', closeEditor);
-			
+
 			// Remove existing undo options
 			Symphony.Elements.header.find('.notifier .undo').trigger('detach.notify');
 		};
@@ -266,7 +266,7 @@
 			// Unsaved changes
 			if(form.serialize() != editor.data('form')) {
 				notifier.trigger('attach.notify', [
-					Symphony.Language.get('You just closed “{$title}” with unsaved changes.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen to save?') + '</a>' + '<a id="' + id + '-dismiss">' + Symphony.Language.get('Or dismiss?') + '</a>', 
+					Symphony.Language.get('You just closed “{$title}” with unsaved changes.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen to save?') + '</a>' + '<a id="' + id + '-dismiss">' + Symphony.Language.get('Or dismiss?') + '</a>',
 					'protected error undo'
 				]);
 
@@ -304,9 +304,9 @@
 			var associations = Symphony.Context.get('env').associations.parent,
 				handle = '';
 
-			$.each(associations, function(index, association) {
-				if(association.id == id) {
-					handle = association.handle
+			$.each(associations, function() {
+				if(this.id == id) {
+					handle = this.handle;
 				}
 			});
 

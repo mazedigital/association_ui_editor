@@ -1,5 +1,5 @@
 /**
- * Association UI: Editor 
+ * Association UI: Editor
  */
 
 .field[data-editor='aui-editor'] .item {
@@ -38,18 +38,20 @@
 }
 
 .aui-editor-progress {
-	height: 0.3rem;
-	background: #5c83ba;
-	width: 0;
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 0;
+	height: 0.3rem;
+	background: #5c83ba;
+	-webkit-transition: width 4s ease-in;
 	transition: width 4s ease-in;
-	z-index: 5000;
 	opacity: 1;
+	z-index: 5000;
 }
 
 .aui-editor-progress.changes-fast {
+	-webkit-transition: width 0.5s ease-in, opacity 0.25s ease-in 0.75s;
 	transition: width 0.5s ease-in, opacity 0.25s ease-in 0.75s;
 }
 
@@ -128,6 +130,7 @@
 }
 
 .aui-editor-page {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	border: 0.1rem solid rgba(191, 191, 183, 0.65);
@@ -135,7 +138,6 @@
 	box-shadow: 0 -0.2rem 0.3rem rgba(0, 0, 0, 0.05);
 	-webkit-animation: introduce 0.25s forwards;
 	animation: introduce 0.25s forwards;
-	position: relative;
 }
 
 .is-canceled .aui-editor-page {
