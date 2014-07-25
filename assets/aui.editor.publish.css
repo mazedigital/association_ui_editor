@@ -95,26 +95,57 @@
 
 /* Nested section */
 
+.aui-editor-close {
+	position: absolute;
+	top: 2.2rem;
+	right: 1.8rem;
+	font-size: 127.28%;
+	line-height: 1.35;
+	color: rgba(0, 0, 0, 0.3);
+	border: none;
+	transition: color 0.25s ease-in;
+}
+
+.aui-editor-close span,
+.aui-editor-close:hover {
+	color: rgba(0, 0, 0, 0.7);
+}
+
 .aui-editor-section #header {
 	border: none;
 }
 
-.aui-editor-section #header .notifier {
-	background-color: #f4f4f4 !important;
+.aui-editor-section .notifier {
+	background-color: #F4F4F4 !important;
 	color: rgba(0, 0, 0, 0.7) !important;
-	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1) !important;
 }
 
-.aui-editor-section #header .notice,
-.aui-editor-section #header .notice.success {
-	background-color: #f4f4f4 !important;
-	color: rgba(0, 0, 0, 0.7) !important;
+.aui-editor-section .notice {
+	background-color: #fff;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+@keyframes inlinesuccess {
+	to {
+		background-color: #F4F4F4;
+		border-color: rgba(0, 0, 0, 0.1);
+		color: rgba(0, 0, 0, 0.7);
+	}
+}
+
+.aui-editor-section .notice.success {
+	background-color: #bfdc96;
+	border: none !important;
+	color: #6d7841;
+	animation: inlinesuccess 0.5s ease-out 10s 1 forwards;
 }
 
 .aui-editor-section #context {
 	min-height: 3rem;
-	padding: 2.2rem 1.8rem 0;
+	padding: 2.2rem 1.8rem 0.5rem;
 	background: #fff;
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
 }
 
 .aui-editor-section #breadcrumbs a {

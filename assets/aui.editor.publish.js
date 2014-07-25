@@ -4,7 +4,11 @@
 	Symphony.Language.add({
 		'Edit': false,
 		'Associated {$section-name}': false,
-		'You just closed the editor for “{$title}”.': false
+		'You just closed “{$title}” with unsaved changes.': false,
+		'Reopen to save?': false,
+		'Or dismiss?': false,
+		'You just edited “{$title}”.': false,
+		'Reopen?': false
 	});
 
 	Symphony.Extensions.AssociationUIEditor = function() {
@@ -71,8 +75,13 @@
 
 		var closeEditor = function() {
 			var editor = $(this),
-				link = editor.data('link');
+				link;
 
+			if(!editor.is('.aui-editor')) {
+				editor = Symphony.Elements.contents.find('.aui-editor:visible');
+			}
+
+			link = editor.data('link');
 			editor.addClass('is-canceled');
 			resetScrollHeight();
 
@@ -89,29 +98,58 @@
 			var iframe = $(this),
 				editor = iframe.parents('.aui-editor'),
 				contents = iframe.contents(),
+				wrapper = contents.find('#wrapper'),
+				header = contents.find('#header'),
+				notifier = header.find('.notifier'),
+				context = contents.find('#context'),
+				breadcrumbs = contents.find('#breadcrumbs'),
+				content = contents.find('#contents'),
+				form = contents.find('#contents form'),
 				title = contents.find('#symphony-subheading').text(),
 				link = editor.data('link'),
-				height;
+				close, height;
 
 			// Store title
 			editor.data('title', title);
 
+			// Modify header links
+			close = $('<a />', {
+				class: 'aui-editor-close',
+				html: Symphony.Language.get('Close') + ' <span>×</span>',
+				on: {
+					click: closeEditor
+				}
+			});
+			breadcrumbs.after(close);
+			breadcrumbs.find('a').each(modifyHeader);
+
+			// Relocate notifications
+			notifier.find('a').remove();
+			context.after(notifier);
+
 			// Remove elements
 			contents.find('body').addClass('aui-editor-section');
-			contents.find('#header').remove();
-			contents.find('#context .actions').remove();
-			contents.find('#contents .actions .delete').remove();
-
-			// Modify header links
-			contents.find('#breadcrumbs a').each(modifyHeader);
+			header.remove();
+			context.find('.actions').remove();
+			content.find('.actions .delete').remove();
 
 			// Show content
 			iframe.removeClass('is-hidden');
 
+			// Store state
+			editor.data('form', form.serialize());
+
 			// Set height
-			height = contents.find('#wrapper').height();
+			height = wrapper.height();
 			editor.data('height', height);
 			setScrollHeight(link);
+
+			// Prepare saving
+			content.find('.actions input[type="submit"]').on('click', function() {
+				$('html, body').animate({
+					scrollTop: 0
+				});
+			});
 		};
 
 		var modifyHeader = function(index) {
@@ -130,9 +168,15 @@
 		};
 
 		var showEditor = function(link) {
-			var editor = editors[link];
+			var editor = editors[link],
+				iframe, contents, notifier;
 
 			if(editor.is('.is-hidden')) {
+				iframe = editor.find('iframe');
+				contents = iframe.contents();
+				notifier = contents.find('.notifier').hide();
+				notifier.find('p').remove();
+
 				editor.removeClass('is-hidden');
 				editor.removeClass('is-canceled');
 				setScrollHeight(link);
@@ -140,6 +184,9 @@
 			else {
 				Symphony.Elements.contents.append(editor);
 			}
+
+			// Set close action
+			Symphony.Elements.context.one('click.aui-editor', closeEditor);
 			
 			// Remove existing undo options
 			Symphony.Elements.header.find('.notifier .undo').trigger('detach.notify');
@@ -148,17 +195,38 @@
 		var prepareUndo = function(link) {
 			var id = new Date().getTime(),
 				editor = editors[link],
-				title = editor.data('title');
+				title = editor.data('title'),
+				notifier = Symphony.Elements.header.find('div.notifier'),
+				iframe = editor.find('iframe'),
+				contents = iframe.contents(),
+				form = contents.find('#contents form');
 
-			// Offer undo option after removing a field
-			Symphony.Elements.header.find('div.notifier').trigger(
-				'attach.notify', 
-				[Symphony.Language.get('You just closed the editor for “{$title}”.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Restore?') + '</a>', 'protected undo']
-			);
+			// Unsaved changes
+			if(form.serialize() != editor.data('form')) {
+				notifier.trigger('attach.notify', [
+					Symphony.Language.get('You just closed “{$title}” with unsaved changes.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen to save?') + '</a>' + '<a id="' + id + '-dismiss">' + Symphony.Language.get('Or dismiss?') + '</a>', 
+					'protected error undo'
+				]);
+			}
+
+			// Closed
+			else {
+				notifier.trigger('attach.notify', [
+					Symphony.Language.get('You just edited “{$title}”.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen?') + '</a>', 
+					'protected undo'
+				]);
+			}
 
 			// Prepare field recovery
 			$('#' + id).on('click.aui-editor', function() {
 				showEditor(link);
+				$(this).parent().trigger('detach.notify');
+			});
+
+			// Dismiss
+			$('#' + id + '-dismiss').on('click.aui-editor', function() {
+				editor.remove();
+				delete editors[link];
 				$(this).parent().trigger('detach.notify');
 			});
 		};
