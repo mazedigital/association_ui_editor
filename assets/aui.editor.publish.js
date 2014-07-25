@@ -241,28 +241,20 @@
 					Symphony.Language.get('You just closed “{$title}” with unsaved changes.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen to save?') + '</a>' + '<a id="' + id + '-dismiss">' + Symphony.Language.get('Or dismiss?') + '</a>', 
 					'protected error undo'
 				]);
+
+				// Prepare field recovery
+				$('#' + id).on('click.aui-editor', function() {
+					$(this).parent().trigger('detach.notify');
+					showEditor(link);
+				});
+
+				// Dismiss
+				$('#' + id + '-dismiss').on('click.aui-editor', function() {
+					$(this).parent().trigger('detach.notify');
+					editor.remove();
+					delete editors[link];
+				});
 			}
-
-			// Closed
-			else {
-				notifier.trigger('attach.notify', [
-					Symphony.Language.get('You just edited “{$title}”.', {title: title}) + '<a id="' + id + '">' + Symphony.Language.get('Reopen?') + '</a>', 
-					'protected undo'
-				]);
-			}
-
-			// Prepare field recovery
-			$('#' + id).on('click.aui-editor', function() {
-				$(this).parent().trigger('detach.notify');
-				showEditor(link);
-			});
-
-			// Dismiss
-			$('#' + id + '-dismiss').on('click.aui-editor', function() {
-				$(this).parent().trigger('detach.notify');
-				editor.remove();
-				delete editors[link];
-			});
 		};
 
 		var setScrollHeight = function(link) {
