@@ -120,6 +120,9 @@
 
 			// Prepare undo
 			prepareUndo(link);
+
+			// Trigger update
+			$('.field .item[data-link="' + link + '"]').trigger('update');
 		};
 
 		var loadPage = function() {
