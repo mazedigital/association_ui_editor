@@ -13,15 +13,17 @@
 
 	Symphony.Extensions.AssociationUIEditor = function() {
 		var fields,
-			templateTrigger, templateEditor,
+			templateTrigger, templateEditor, templateCreate,
 			editors = {};
 
 		var init = function() {
 			fields = Symphony.Elements.contents.find('.field[data-editor^="aui-editor"]');
 			templateTrigger = createTriggerTemplate();
 			templateEditor = createEditorTemplate();
+			templateCreate = createNewTemplate();
 
 			attachEditor();
+			createNew();
 		};
 
 		var createTriggerTemplate = function() {
@@ -30,6 +32,27 @@
 
 		var createEditorTemplate = function() {
 			return $('<div class="aui-editor"><div class="aui-editor-page"><iframe class="is-hidden" width="100%" height="100%" frameborder="0" /></div></div>');
+		};
+
+		var createNewTemplate = function() {
+			return $('<div class="aui-editor-create"><button class="aui-editor-button">' + Symphony.Language.get('Create New') + '</button></div>');
+		};
+
+		var createNew = function() {
+			fields.each(attachCreateButton);
+		};
+
+		var attachCreateButton = function() {
+			var field = $(this),
+				button;
+
+			if(field.is('[data-editor="aui-editor-new"]')) {
+				button = templateCreate.clone();
+				button.on('click.aui-editor', function(event) {
+					event.stopPropagation();
+					event.preventDefault();
+				}).appendTo(field);
+			}
 		};
 
 		var attachEditor = function() {
@@ -124,7 +147,11 @@
 			breadcrumbs.find('a').each(modifyHeader);
 
 			// Relocate notifications
+			notifier.find('p').not('.success').not('.error').remove();
 			notifier.find('a').remove();
+			if(!notifier.find('p').length) {
+				notifier.hide();
+			}
 			context.after(notifier);
 
 			// Remove elements
@@ -153,8 +180,7 @@
 		};
 
 		var modifyHeader = function(index) {
-			var link = $(this),
-				sectionName;
+			var link = $(this);
 
 			// Remove internal links
 			link.removeAttr('href');
@@ -219,15 +245,15 @@
 
 			// Prepare field recovery
 			$('#' + id).on('click.aui-editor', function() {
-				showEditor(link);
 				$(this).parent().trigger('detach.notify');
+				showEditor(link);
 			});
 
 			// Dismiss
 			$('#' + id + '-dismiss').on('click.aui-editor', function() {
+				$(this).parent().trigger('detach.notify');
 				editor.remove();
 				delete editors[link];
-				$(this).parent().trigger('detach.notify');
 			});
 		};
 

@@ -8,7 +8,8 @@ Class extension_association_ui_editor extends Extension
     {
         self::$provides = array(
             'association-editor' => array(
-                'aui-editor' => 'Editor'
+                'aui-editor' => 'Editor',
+                'aui-editor-new' => 'Editor (Create New)'
             )
         );
 
