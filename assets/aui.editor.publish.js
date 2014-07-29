@@ -56,7 +56,7 @@
 					event.stopPropagation();
 					event.preventDefault();
 
-					loadEditor(link);
+					loadEditor(link, field);
 				}).appendTo(field);
 			}
 		};
@@ -74,7 +74,8 @@
 		};
 
 		var triggerPage = function(event) {
-			var link = $(this).parent().data('link');
+			var link = $(this).parent().data('link'),
+				field;
 
 			event.preventDefault();
 			event.stopPropagation();
@@ -87,7 +88,7 @@
 			}
 		};
 
-		var loadEditor = function(link) {
+		var loadEditor = function(link, field) {
 			var editor = templateEditor.clone(),
 				iframe = editor.find('iframe');
 
@@ -102,6 +103,11 @@
 
 			// Prepare closing
 			editor.on('click.aui-editor', closeEditor);
+
+			// Store field reference
+			if(field) {
+				editor.data(field);
+			}
 
 			// Attach editor
 			editor.data('link', link);
@@ -131,7 +137,7 @@
 
 		var closeEditor = function() {
 			var editor = $(this),
-				link;
+				link, id, field, contents;
 
 			if(!editor.is('.aui-editor')) {
 				editor = Symphony.Elements.contents.find('.aui-editor:visible');
@@ -150,7 +156,17 @@
 			prepareUndo(link);
 
 			// Trigger update
-			$('.field .item[data-link="' + link + '"]').trigger('update');
+			field = editor.data(field);
+			if(field) {
+				contents = editor.find('iframe').contents();
+				id = contents.find('body').attr('class').match(/ id-(\d+)\/?/)[1];
+				Symphony.Extensions.AssociationUISelector.add(field, id);
+			}
+			else {
+				id = link.match(/\/edit\/(\d+)\/?/)[1];
+				Symphony.Extensions.AssociationUISelector.update(id);
+			}
+			Symphony.Extensions.AssociationUISelector.update(id);
 		};
 
 		var loadPage = function() {
