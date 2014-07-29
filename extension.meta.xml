@@ -13,6 +13,10 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.0.0beta1" date="2014-07-29" min="2.5">
+			- Added editor pages
+			- Added editing only mode
+		</release>
 		<release version="0.2.0" date="2014-06-24" min="2.4">
 			- Added editor trigger
 			- Fixed naming
