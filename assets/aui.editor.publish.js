@@ -106,7 +106,7 @@
 
 			// Store field reference
 			if(field) {
-				editor.data(field);
+				editor.data('field', field);
 			}
 
 			// Attach editor
@@ -156,15 +156,21 @@
 			prepareUndo(link);
 
 			// Trigger update
-			field = editor.data(field);
+			field = editor.data('field');
 			if(field) {
 				contents = editor.find('iframe').contents();
-				id = contents.find('body').attr('class').match(/ id-(\d+)\/?/)[1];
-				Symphony.Extensions.AssociationUISelector.add(field, id);
+				id = contents.find('body').attr('class').match(/ id-(\d+)\/?/);
+
+				if(id) {
+					Symphony.Extensions.AssociationUISelector.add(field, id[1]);
+				}
 			}
 			else {
-				id = link.match(/\/edit\/(\d+)\/?/)[1];
-				Symphony.Extensions.AssociationUISelector.update(id);
+				id = link.match(/\/edit\/(\d+)\/?/);
+				
+				if(id) {
+					Symphony.Extensions.AssociationUISelector.update(id[1]);
+				}
 			}
 			Symphony.Extensions.AssociationUISelector.update(id);
 		};
