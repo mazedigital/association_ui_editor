@@ -2,7 +2,7 @@
  * Association UI: Editor
  */
 
-.field[data-editor='aui-editor'] .item {
+.field[data-editor^='aui-editor'] .item {
 	padding-left: 0.4rem;
 	background-image: url(editor.svg);
 	background-repeat: no-repeat;
@@ -10,7 +10,7 @@
 	background-size: 0.8rem 10rem;
 }
 
-.field[data-editor='aui-editor'] .multi .item {
+.field[data-editor^='aui-editor'] .multi .item {
 	padding-left: 1.3rem;
 	background-position: 1rem center;
 }
