@@ -324,8 +324,8 @@
 				height = editor.data('height');
 
 			Symphony.Elements.contents.css({
-				minHeight: height,
-				maxHeight: height,
+				minHeight: window.innerHeight - Symphony.Elements.contents.offset().top,
+				height: height,
 				overflow: 'hidden'
 			});
 		};
