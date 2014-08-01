@@ -52,12 +52,12 @@
 				handle = getSectionHandle(field.data('parent-section-id'));
 				link = Symphony.Context.get('symphony') + '/publish/' + handle + '/new/';
 
-				button.on('click.aui-editor', function(event) {
+				button.appendTo(field).find('button').on('click.aui-editor', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
 
 					loadEditor(link, field);
-				}).appendTo(field);
+				});
 			}
 		};
 
