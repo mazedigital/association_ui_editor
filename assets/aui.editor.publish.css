@@ -18,10 +18,10 @@
 .aui-editor-trigger {
 	position: absolute;
 	top: 0.5rem;
-	left: -0.5rem;
+	left: -1rem;
 	overflow: hidden;
-	width: 2rem;
-	height: 2rem;
+	width: 3rem;
+	height: 100%;
 	text-indent: -1000em;
 	border: none;
 	background: none;
