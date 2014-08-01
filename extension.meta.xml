@@ -13,6 +13,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.0.0RC" date="2014-08-01" min="2.5">
+			- Added documentation to the readme
+		</release>
 		<release version="1.0.0beta2" date="2014-08-01" min="2.5">
 			- Enlarged click area
 			- Fixed trigger attaching
