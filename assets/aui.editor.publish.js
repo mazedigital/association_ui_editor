@@ -62,15 +62,27 @@
 		};
 
 		var attachEditor = function() {
-			fields.each(attachTrigger);
+			fields.each(attachTriggers);
+
+			fields.find('.selectized').each(function() {
+				this.selectize.on('item_add', function(value, item) {
+					item.each(attachTrigger);
+				});
+			});
+		};
+
+		var attachTriggers = function() {
+			var items = $(this).find('.item');
+
+			items.each(attachTrigger);
 		};
 
 		var attachTrigger = function() {
-			var item = $(this).find('.item'),
+			var item = $(this),
 				trigger = templateTrigger.clone();
 
 			trigger.on('mousedown.aui-editor', triggerPage);
-			item.not('.aui-editor-trigger').prepend(trigger);
+			item.not(':has(.aui-editor-trigger)').prepend(trigger);			
 		};
 
 		var triggerPage = function(event) {
