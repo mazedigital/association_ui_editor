@@ -34,7 +34,7 @@
 }
 
 .aui-editor-button {
-	margin-right: 0;
+	margin-right: 0 !important;
 }
 
 .aui-editor-progress {

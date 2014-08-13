@@ -36,7 +36,7 @@
 		};
 
 		var createNewTemplate = function() {
-			return $('<div class="aui-editor-create"><button class="aui-editor-button">' + Symphony.Language.get('Create New') + '</button></div>');
+			return $('<div class="aui-editor-create"><a class="aui-editor-button button">' + Symphony.Language.get('Create New') + '</a></div>');
 		};
 
 		var createNew = function() {
@@ -52,7 +52,7 @@
 				handle = getSectionHandle(field.data('parent-section-id'));
 				link = Symphony.Context.get('symphony') + '/publish/' + handle + '/new/';
 
-				button.appendTo(field).find('button').on('click.aui-editor', function(event) {
+				button.appendTo(field).find('.aui-editor-button').on('click.aui-editor', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
 
