@@ -8,7 +8,9 @@
 		'Reopen to save?': false,
 		'Or dismiss?': false,
 		'You just edited “{$title}”.': false,
-		'Reopen?': false
+		'Reopen?': false,
+		'Create New': false,
+		'Close': false
 	});
 
 	Symphony.Extensions.AssociationUIEditor = function() {
