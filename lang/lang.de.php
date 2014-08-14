@@ -16,7 +16,7 @@
 	$dictionary = array(
 
 		'Associated {$section-name}' => 
-		'Verknüpfter Eintrag: {$section-name}',
+		'Verknüpfung: {$section-name}',
 		
 		'Edit' => 
 		'bearbeiten',
