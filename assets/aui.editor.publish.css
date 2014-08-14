@@ -3,16 +3,11 @@
  */
 
 .field[data-editor^='aui-editor'] .item {
-	padding-left: 0.4rem;
-	background-image: url(editor.svg);
-	background-repeat: no-repeat;
-	background-position: left center;
-	background-size: 0.8rem 10rem;
-}
-
-.field[data-editor^='aui-editor'] .multi .item {
-	padding-left: 1.3rem;
-	background-position: 1rem center;
+  padding-left: 1.3rem;
+  background-image: url(editor.svg);
+  background-repeat: no-repeat;
+  background-position: 1rem center;
+  background-size: 0.8rem 10rem;
 }
 
 .aui-editor-trigger {
