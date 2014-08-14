@@ -21,6 +21,9 @@
 		'Edit' => 
 		'bearbeiten',
 		
+		'Close' => 
+		'schließen',
+		
 		'You just closed “{$title}” with unsaved changes.' => 
 		'Änderungen am Eintrag „{$title}“ wurden nicht gespeichert.',
 		
