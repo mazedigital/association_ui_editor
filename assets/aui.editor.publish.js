@@ -112,7 +112,7 @@
 			window.requestAnimationFrame(indicateState);
 
 			//set pre-populate stuff here
-			if (field.data('filters') && Object.keys(field.data('filters')).length){
+			if (field && field.data('filters') && Object.keys(field.data('filters')).length){
 				var qs = {prepopulate:{}};
 				var filters = field.data('filters');
 				for(var field in filters) {
