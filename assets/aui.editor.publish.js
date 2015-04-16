@@ -115,9 +115,9 @@
 			if (field && field.data('filters') && Object.keys(field.data('filters')).length){
 				var qs = {prepopulate:{}};
 				var filters = field.data('filters');
-				for(var field in filters) {
-					var fieldid = $('*[name="fields['+field+']"],*[name="fields['+field+'][]"]').closest('.field').attr('id').substring(6);
-					qs.prepopulate[fieldid] = filters[field];
+				for(var fieldName in filters) {
+					var fieldid = $('*[name="fields['+fieldName+']"],*[name="fields['+fieldName+'][]"]').closest('.field').attr('id').substring(6);
+					qs.prepopulate[fieldid] = filters[fieldName];
 				}
 				qs = '?' + $.param(qs);
 			} else {
