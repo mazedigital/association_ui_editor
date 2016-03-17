@@ -19,7 +19,7 @@
 		'Verknüpfung: {$section-name}',
 		
 		'Edit' => 
-		'bearbeiten',
+		'öffnen',
 		
 		'Close' => 
 		'schließen',
