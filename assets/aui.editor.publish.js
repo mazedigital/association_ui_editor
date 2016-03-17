@@ -82,7 +82,7 @@
 				trigger = templateTrigger.clone();
 
 			trigger.on('mousedown.aui-editor', triggerPage);
-			item.not(':has(.aui-editor-trigger)').prepend(trigger);			
+			item.not(':has(.aui-editor-trigger)').find('a.destructor').before(trigger);			
 		};
 
 		var triggerPage = function(event) {
