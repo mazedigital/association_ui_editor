@@ -1,6 +1,6 @@
 ## Association UI for Symphony: Editor
 
-![Page](https://camo.githubusercontent.com/1a262140104a2a646036b30f931fb66ab4f5defd/687474703a2f2f70726f6a656b74652e6e696c73686f6572726d616e6e2e64652f73637265656e73686f74732f73796d5f6175692d656469746f722d706167652e706e67)
+![page](https://cloud.githubusercontent.com/assets/446874/14886475/4c9f7ee0-0d51-11e6-8831-cb7a01b1da5c.png)
 
 Editor offers an interface to open and edit existing or create new associated entries. It is a companion to the [Selector interface](https://github.com/hananils/association_ui_selector) and works with core select boxes and tag lists as well as with [Association fields](https://github.com/symphonists/association_field).
 
@@ -21,7 +21,7 @@ There are two modes:
 
 #### Open, Edit and Create New
 
-![Field](https://camo.githubusercontent.com/e39fd5b0bceb03f90d549c8b2cf205b384f1cde7/687474703a2f2f70726f6a656b74652e6e696c73686f6572726d616e6e2e64652f73637265656e73686f74732f73796d5f6175692d656469746f722d6669656c642e706e67)
+![field](https://cloud.githubusercontent.com/assets/446874/14886478/4f511db0-0d51-11e6-86b3-e178faaca474.png)
 
 Each associated entry will offer a page icon that opens the editor on a separated page on click.
 If you've enabled entry creation an additional button will be added for that purpose.
