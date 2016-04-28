@@ -28,8 +28,6 @@ If you've enabled entry creation an additional button will be added for that pur
 
 Editor supports nested associations.
 
-**Please note:** It has been reported that browsers might not display the Editor icon in the interface. A solution to this problem is documented in [issue #17](https://github.com/hananils/association_ui_editor/issues/17).
-
 #### Close Editor
 
 In order to close the editor you can either hit the close button in the upper corner of the page or you can click outside the Editor page.
