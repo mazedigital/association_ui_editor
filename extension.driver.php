@@ -53,8 +53,8 @@ Class extension_association_ui_editor extends Extension
         $callback = Symphony::Engine()->getPageCallback();
 
         if ($callback['driver'] == 'publish' && $callback['context']['page'] !== 'index') {
-            Administration::instance()->Page->addScriptToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.js');
-            Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.css');
+            Administration::instance()->Page->addScriptToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.js?' . ExtensionManager::fetchInstalledVersion('association_ui_editor'));
+            Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/association_ui_editor/assets/aui.editor.publish.css?' . ExtensionManager::fetchInstalledVersion('association_ui_editor'));
         }
     }
 }
