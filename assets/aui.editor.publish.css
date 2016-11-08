@@ -11,8 +11,11 @@
   border-bottom: none;
 }
 
+[data-editor="aui-editor-new"] label {
+margin-bottom: 0;
+}
+
 .aui-editor-create {
-	margin-top: -1.5rem;
 	text-align: right;
 	padding: 0 1rem 1rem 1rem;
 	background: WhiteSmoke;
