@@ -2,7 +2,7 @@
 
 Class extension_association_ui_editor extends Extension
 {
-    private static $provides = array();
+    protected static $provides = array();
 
     public static function registerProviders()
     {
