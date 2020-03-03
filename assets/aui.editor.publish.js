@@ -111,9 +111,22 @@
 			progressFrame = iframe[0];
 			window.requestAnimationFrame(indicateState);
 
+			//set pre-populate stuff here
+			if (field && field.data('filters') && Object.keys(field.data('filters')).length){
+				var qs = {prepopulate:{}};
+				var filters = field.data('filters');
+				for(var fieldName in filters) {
+					var fieldid = $('*[name="fields['+fieldName+']"],*[name="fields['+fieldName+'][]"]').closest('.field').attr('id').substring(6);
+					qs.prepopulate[fieldid] = filters[fieldName];
+				}
+				qs = '?' + $.param(qs);
+			} else {
+				qs ='';
+			}
+
 			// Load content
 			iframe.on('load.aui-editor', loadPage);
-			iframe.attr('src', link);
+			iframe.attr('src', link + qs);
 
 			// Prepare closing
 			editor.on('click.aui-editor', closeEditor);
